@@ -62,7 +62,7 @@ async function main() {
             return res.status(401).send("Unauthorized");
         }
 
-        const transport = new SSEServerTransport("/messages", res);
+        const transport = new SSEServerTransport("/prod/commerce/paragon-mcp/messages", res);
         transports[transport.sessionId] = {transport, currentJwt};
 
         Logger.info(
@@ -88,7 +88,7 @@ async function main() {
     })
 
     app.get("/sse", fn);
-    app.post("/sse", fn);
+    // app.post("/sse", fn);
 
     app.post("/messages", async (req, res) => {
         const sessionId = req.query.sessionId as string;

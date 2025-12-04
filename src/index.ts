@@ -49,13 +49,7 @@ async function main() {
 
     const app = express();
 
-    app.use("/static", express.static("static"));
-
-    app.get("/ping", (req, res) => {
-        res.send("pong");
-    })
-
-    app.get("/sse", async (req, res) => {
+    const fn = async (req: any, res: any) => {
         Logger.info('/sse', {req})
         let currentJwt = req.headers.authorization;
 
@@ -85,7 +79,16 @@ async function main() {
         });
 
         await server.connect(transport);
-    });
+    }
+
+    app.use("/static", express.static("static"));
+
+    app.get("/ping", (req, res) => {
+        res.send("pong");
+    })
+
+    app.get("/sse", fn);
+    app.post("/sse", fn);
 
     app.post("/messages", async (req, res) => {
         const sessionId = req.query.sessionId as string;

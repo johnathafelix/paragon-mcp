@@ -9,7 +9,7 @@
     "start": "tsx --env-file=.env src/index.ts",
     "dev": "tsx watch --include \"./openapi/*\" --env-file=.env src/index.ts",
     "build": "node esbuild.config.js",
-    "start:prod": "node dist/index.mjs"
+    "start:prod": "node --env-file=.env dist/index.mjs"
   },
   "engines": {
     "node": ">=22.14.0"
